@@ -19,7 +19,7 @@ class User(models.Model):
     fio = models.CharField(max_length=100)       # fio
     phone = models.CharField(max_length=20)      # phone
     login = models.CharField(max_length=50, unique=True)   # login
-    password = models.CharField(max_length=128)            # password (для учебного проекта можно как есть)
+    password = models.CharField(max_length=128)            
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
     def __str__(self):

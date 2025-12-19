@@ -29,7 +29,18 @@ class RequestForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['message']
+        fields = ['message', 'request']  # ← ЯВНО укажи оба поля
         widgets = {
-            'message': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Комментарий...'}),
+            'message': forms.Textarea(attrs={
+                'rows': 4, 
+                'placeholder': 'Введите текст комментария...',
+                'class': 'form-control'
+            }),
+            'request': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+        }
+        labels = {
+            'message': 'Комментарий',
+            'request': 'Заявка',
         }

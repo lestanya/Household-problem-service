@@ -30,7 +30,7 @@ class RequestForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['message', 'request']  # ← ЯВНО укажи оба поля
+        fields = ['message', 'request'] 
         widgets = {
             'message': forms.Textarea(attrs={
                 'rows': 4, 
@@ -48,7 +48,7 @@ class CommentForm(forms.ModelForm):
 
 class ClientRegistrationForm(UserCreationForm):
     class Meta:
-        model = User  # ← Ваша кастомная модель!
+        model = User 
         fields = ['fio', 'phone', 'username', 'password1', 'password2']
     
     def __init__(self, *args, **kwargs):
@@ -65,11 +65,11 @@ class ClientRegistrationForm(UserCreationForm):
         self.fields['username'].widget.attrs.update({
             'placeholder': 'мой_логин'
         })
-        # password1/password2 стилизуются автоматически
+      
     
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.role = 'client'  # Только заказчик!
+        user.role = 'client'  
         if commit:
             user.save()
         return user

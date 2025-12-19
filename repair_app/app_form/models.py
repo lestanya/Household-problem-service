@@ -39,17 +39,17 @@ class Request(models.Model):
         ('completed', 'Завершена'),
     ]
 
-    request_id = models.AutoField(primary_key=True)  # requestID
-    start_date = models.DateField()                  # startDate
-    climate_tech_type = models.CharField(max_length=50)   # climateTechType
-    climate_tech_model = models.CharField(max_length=100) # climateTechModel
-    problem_description = models.TextField()              # problemDescryption
+    request_id = models.AutoField(primary_key=True)  
+    start_date = models.DateField()                  
+    climate_tech_type = models.CharField(max_length=50)   
+    climate_tech_model = models.CharField(max_length=100) 
+    problem_description = models.TextField()              
     request_status = models.CharField(
     max_length=20,
-    choices=STATUS_CHOICES,   # ← вот это добавляет выпадающий список
+    choices=STATUS_CHOICES,   
     )
-    completion_date = models.DateField(null=True, blank=True)  # completionDate
-    repair_parts = models.TextField(blank=True)           # repairParts (описание заказанных деталей)
+    completion_date = models.DateField(null=True, blank=True)  
+    repair_parts = models.TextField(blank=True)           #  (описание заказанных деталей)
 
     # masterID и clientID
     master = models.ForeignKey(

@@ -19,7 +19,7 @@ def index(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']      # username из User
+        username = request.POST['username']      
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user:
@@ -81,7 +81,7 @@ def dashboard(request):
     else:
         requests_qs = Request.objects.all()
     
-    # ✅ НЕОБХОДИМЫЕ ПЕРЕМЕННЫЕ
+
     is_specialist = role == 'specialist'
     is_manager = role == 'manager'
     is_client = role == 'client'
@@ -92,7 +92,7 @@ def dashboard(request):
     users = User.objects.filter(role__in=['specialist', 'manager']).order_by('fio')
     comments = Comment.objects.all()
 
-    # Формы
+   
     user_form = UserForm()
     request_form = RequestForm()
     if is_specialist:
@@ -101,9 +101,8 @@ def dashboard(request):
     else:
         comment_form = None
 
-    # ✅ ✅ ✅ НОВЫЙ POST КОД ДЛЯ КЛИЕНТА И АДМИНА
+
     if request.method == 'POST':
-        # ✅ КЛИЕНТ РЕДАКТИРУЕТ ЗАЯВКУ
         if 'edit_submit' in request.POST:
             request_id = request.POST.get('request_id')
             req = get_object_or_404(Request, request_id=request_id, client=user)
@@ -116,7 +115,7 @@ def dashboard(request):
             messages.success(request, f'Заявка #{request_id} успешно обновлена!')
             return redirect('dashboard')
         
-        # ✅ АДМИН/ОПЕРАТОР СОЗДАЕТ ПОЛЬЗОВАТЕЛЯ
+
         if 'user_submit' in request.POST:
             user_form = UserForm(request.POST)
             if user_form.is_valid():
@@ -126,7 +125,7 @@ def dashboard(request):
             else:
                 messages.error(request, 'Ошибка создания пользователя!')
         
-        # ✅ АДМИН/ОПЕРАТОР СОЗДАЕТ ЗАЯВКУ
+        #  АДМИН/ОПЕРАТОР СОЗДАЕТ ЗАЯВКУ
         if 'request_submit' in request.POST:
             request_form = RequestForm(request.POST)
             if request_form.is_valid():
@@ -138,7 +137,7 @@ def dashboard(request):
             else:
                 messages.error(request, 'Ошибка создания заявки!')
         
-        # ✅ СПЕЦИАЛИСТ ДОБАВЛЯЕТ КОММЕНТАРИЙ
+        #  СПЕЦИАЛИСТ ДОБАВЛЯЕТ КОММЕНТАРИЙ
         if 'comment_submit' in request.POST and is_specialist:
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
@@ -195,7 +194,7 @@ def stats_view(request):
     type_stats = (
         Request.objects
         .values('climate_tech_type')
-        .annotate(count=Count('request_id'))   # ← тут главное изменение
+        .annotate(count=Count('request_id'))   
         .order_by('-count')
     )
 
@@ -231,7 +230,7 @@ def status_change(request, request_id):
         
         return redirect('dashboard')
     
-    # GET — показываем форму выбора статуса
+   
     context = {
         'request': req,
         'status_choices': Request.STATUS_CHOICES,

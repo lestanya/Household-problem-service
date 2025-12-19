@@ -5,14 +5,14 @@
             "name": "Django (venv auto)",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/app_site/manage.py",
+            "program": "${workspaceFolder}/repair_app/manage.py",
             "args": ["runserver"],
             "django": true,
             "env": { 
                 "PYTHONPATH": "${workspaceFolder}"
             },
             "console": "integratedTerminal",
-            "justMyCode": true,
+            "justMyCode": false,
             // АВТОАКТИВАЦИЯ VENV
             "python": "${workspaceFolder}/venv/Scripts/python.exe"
         }

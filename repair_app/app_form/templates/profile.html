@@ -502,41 +502,7 @@
     }
 </style>
 
-<div class="profile-container">
-    <!-- ✅ ФОРМА СОЗДАНИЯ ЗАЯВКИ ТОЛЬКО ДЛЯ КЛИЕНТА -->
-    {% if user.role == 'client' and request_form %}
-    <div class="form-section">
-        <div class="form-header">
-            <div class="form-icon"><i class="fas fa-plus-circle"></i></div>
-            <h3 class="form-title">Создать новую заявку</h3>
-        </div>
-        
-        <form method="post">
-            {% csrf_token %}
-            {% for field in request_form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">
-                    <i class="fas fa-{% if field.name == 'climate_tech_type' %}snowflake 
-                        {% elif field.name == 'climate_tech_model' %}tag 
-                        {% elif field.name == 'problem_description' %}exclamation-triangle 
-                        {% elif field.name == 'start_date' %}calendar-alt 
-                        {% else %}cog {% endif %}me-1"></i>
-                    {{ field.label }}
-                </label>
-                {{ field }}
-                {% if field.errors %}
-                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 0.5rem;">
-                    {{ field.errors }}
-                </div>
-                {% endif %}
-            </div>
-            {% endfor %}
-            <button type="submit" name="create_request" class="form-btn">
-                <i class="fas fa-paper-plane me-2"></i> Отправить заявку
-            </button>
-        </form>
-    </div>
-    {% endif %}
+
 
     <!-- Профиль пользователя -->
     <div class="profile-card">
@@ -597,6 +563,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <!-- Секция заявок -->
     <div class="requests-section">
@@ -681,6 +649,42 @@
         {% endif %}
     </div>
 </div>
+
+<div class="profile-container">
+    <!-- ✅ ФОРМА СОЗДАНИЯ ЗАЯВКИ ТОЛЬКО ДЛЯ КЛИЕНТА -->
+    {% if user.role == 'client' and request_form %}
+    <div class="form-section">
+        <div class="form-header">
+            <div class="form-icon"><i class="fas fa-plus-circle"></i></div>
+            <h3 class="form-title">Создать новую заявку</h3>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in request_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    <i class="fas fa-{% if field.name == 'climate_tech_type' %}snowflake 
+                        {% elif field.name == 'climate_tech_model' %}tag 
+                        {% elif field.name == 'problem_description' %}exclamation-triangle 
+                        {% elif field.name == 'start_date' %}calendar-alt 
+                        {% else %}cog {% endif %}me-1"></i>
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 0.5rem;">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" name="create_request" class="form-btn">
+                <i class="fas fa-paper-plane me-2"></i> Отправить заявку
+            </button>
+        </form>
+    </div>
+    {% endif %}
 
 <!-- JavaScript анимации -->
 <script>

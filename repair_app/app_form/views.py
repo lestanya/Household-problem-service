@@ -17,6 +17,8 @@ def index(request):
     return render(request, 'index.html')
 
 
+# -------------------ФОРМЫ ВХОДА ВЫХОДА, ПРОФИЛЯ---------------------------
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']      
@@ -34,6 +36,25 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Вы вышли из системы')
     return redirect('index')
+
+
+
+def register_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        form = ClientRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, f'✅ Добро пожаловать, {user.fio}!')
+            return redirect('dashboard')
+    else:
+        form = ClientRegistrationForm()
+    
+    return render(request, 'register.html', {'form': form})
+
 
 
 @login_required
@@ -92,7 +113,6 @@ def dashboard(request):
     users = User.objects.filter(role__in=['specialist', 'manager']).order_by('fio')
     comments = Comment.objects.all()
 
-   
     user_form = UserForm()
     request_form = RequestForm()
     if is_specialist:
@@ -176,9 +196,17 @@ def qr_survey_page(request):
 
 
 def stats_view(request):
-    # Выполненные заявки
+    print("=" * 50)
+    print("DEBUG stats_view")
+    print(f"request.user = {request.user}")
+
     completed_qs = Request.objects.filter(request_status='completed')
+    print(f"completed_qs = {completed_qs}")
+    print(f"completed_qs.count() = {completed_qs.count()}")
+
     completed_count = completed_qs.count()
+    print(f"completed_count = {completed_count}")
+    print("=" * 50)
 
     # Среднее время выполнения (completion_date - start_date) в часах
     durations = []
@@ -258,21 +286,6 @@ def api_assign_master(request):
     return JsonResponse({'success': True})
 
 
-def register_view(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard')
-    
-    if request.method == 'POST':
-        form = ClientRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, f'✅ Добро пожаловать, {user.fio}!')
-            return redirect('dashboard')
-    else:
-        form = ClientRegistrationForm()
-    
-    return render(request, 'register.html', {'form': form})
 
 
 

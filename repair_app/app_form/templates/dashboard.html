@@ -624,19 +624,7 @@
 </style>
 
 <div class="dashboard-container">
-    <!-- ✅ НОВАЯ СЕКЦИЯ ПОИСКА -->
-    <div class="search-section">
-        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-            <input type="text" class="search-input" id="requestSearch" placeholder="🔍 Поиск по номеру заявки, типу или модели..." />
-            <button class="search-btn" onclick="searchRequests()">
-                <i class="fas fa-search me-2"></i>Найти
-            </button>
-            <button class="search-btn" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);" onclick="clearSearch()">
-                <i class="fas fa-times me-2"></i>Очистить
-            </button>
-        </div>
-        <div id="searchResults" style="margin-top: 1rem; color: #80d4ff; font-weight: 600;"></div>
-    </div>
+
 
     <!-- Заголовок -->
     <div class="dashboard-header">
@@ -706,6 +694,20 @@
         <!-- ... таблица пользователей ... -->
     </div>
 
+
+        <!-- ✅ НОВАЯ СЕКЦИЯ ПОИСКА -->
+    <div class="search-section">
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <input type="text" class="search-input" id="requestSearch" placeholder="🔍 Поиск по номеру заявки, типу или модели..." />
+            <button class="search-btn" onclick="searchRequests()">
+                <i class="fas fa-search me-2"></i>Найти
+            </button>
+            <button class="search-btn" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);" onclick="clearSearch()">
+                <i class="fas fa-times me-2"></i>Очистить
+            </button>
+        </div>
+        <div id="searchResults" style="margin-top: 1rem; color: #80d4ff; font-weight: 600;"></div>
+    </div>
     <!-- ✅ ГЛАВНАЯ ТАБЛИЦА ЗАЯВОК С ПОИСКОМ -->
     <div class="data-section">
         <div class="section-header">

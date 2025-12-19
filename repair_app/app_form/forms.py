@@ -14,18 +14,31 @@ class UserForm(forms.ModelForm):
             'role': forms.Select(choices=User.ROLE_CHOICES),
         }
 
+
 class RequestForm(forms.ModelForm):
     class Meta:
         model = Request
-        fields = ['start_date', 'climate_tech_type', 'climate_tech_model', 
-                 'problem_description', 'request_status', 'completion_date', 
-                 'repair_parts', 'master', 'client']
+        fields = ['climate_tech_type', 'climate_tech_model', 'problem_description', 'start_date']
         widgets = {
-            'problem_description': forms.Textarea(attrs={'rows': 3}),
-            'repair_parts': forms.Textarea(attrs={'rows': 2}),
             'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'completion_date': forms.DateInput(attrs={'type': 'date'}),
+            'climate_tech_type': forms.TextInput(attrs={
+                'placeholder': 'Кондиционер, сплит-система...'
+            }),
+            'climate_tech_model': forms.TextInput(attrs={
+                'placeholder': 'Daikin FTXM25R, LG PC12SQ...'
+            }),
+            'problem_description': forms.Textarea(attrs={
+                'rows': 4, 
+                'placeholder': 'Подробно опишите проблему...'
+            }),
         }
+        labels = {
+            'climate_tech_type': 'Тип оборудования',
+            'climate_tech_model': 'Модель',
+            'problem_description': 'Описание проблемы', 
+            'start_date': 'Дата обращения'
+        }
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -75,26 +88,3 @@ class ClientRegistrationForm(UserCreationForm):
         return user
     
 
-class RequestForm(forms.ModelForm):
-    class Meta:
-        model = Request
-        fields = ['climate_tech_type', 'climate_tech_model', 'problem_description', 'start_date']
-        widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'climate_tech_type': forms.TextInput(attrs={
-                'placeholder': 'Кондиционер, сплит-система...'
-            }),
-            'climate_tech_model': forms.TextInput(attrs={
-                'placeholder': 'Daikin FTXM25R, LG PC12SQ...'
-            }),
-            'problem_description': forms.Textarea(attrs={
-                'rows': 4, 
-                'placeholder': 'Подробно опишите проблему...'
-            }),
-        }
-        labels = {
-            'climate_tech_type': 'Тип оборудования',
-            'climate_tech_model': 'Модель',
-            'problem_description': 'Описание проблемы', 
-            'start_date': 'Дата обращения'
-        }

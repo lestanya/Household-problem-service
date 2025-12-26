@@ -3,7 +3,7 @@
 
 {% block content %}
 <style>
-    /* Дополнительные стили для страницы входа */
+    /* Стили для страницы входа */
     .login-page-container {
         min-height: calc(100vh - 120px);
         display: flex;
@@ -11,26 +11,38 @@
         align-items: center;
         padding: 20px;
         position: relative;
+        overflow: hidden;
     }
 
     .login-form-container {
         width: 100%;
-        max-width: 420px;
+        max-width: 450px;
         z-index: 10;
         position: relative;
     }
 
     .login-card {
-        background: rgba(30, 41, 59, 0.8);
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.15) 0%, 
+            rgba(244, 164, 96, 0.1) 100%);
         backdrop-filter: blur(25px);
-        border-radius: 24px;
+        border-radius: 25px;
         padding: 50px 45px;
-        border: 1px solid rgba(59, 130, 246, 0.2);
+        border: var(--border-wood);
         box-shadow: 
-            0 25px 50px -12px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            0 25px 50px -12px rgba(139, 69, 19, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         position: relative;
         overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .login-card:hover {
+        border-color: var(--accent-gold);
+        box-shadow: 
+            0 35px 60px -15px rgba(139, 69, 19, 0.25),
+            0 0 50px rgba(244, 164, 96, 0.15);
+        transform: translateY(-5px);
     }
 
     .login-card::before {
@@ -39,46 +51,104 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 1px;
+        height: 4px;
         background: linear-gradient(90deg, 
-            transparent, 
-            rgba(59, 130, 246, 0.8), 
-            transparent);
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold),
+            var(--wood-sand),
+            var(--wood-dark));
         z-index: 1;
     }
 
     .login-header {
         text-align: center;
         margin-bottom: 45px;
+        position: relative;
     }
 
     .login-icon {
-        font-size: 3.5em;
-        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        font-size: 4em;
+        background: linear-gradient(135deg, 
+            var(--wood-dark), 
+            var(--accent-gold));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 20px;
-        filter: drop-shadow(0 5px 15px rgba(59, 130, 246, 0.3));
+        filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
+        position: relative;
+    }
+
+    /* Кавайные ушки на иконке */
+    .icon-ears {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        z-index: 1;
+    }
+
+    .icon-ear {
+        width: 15px;
+        height: 25px;
+        background: var(--wood-sand);
+        border-radius: 50% 50% 0 0;
+        position: relative;
+        animation: earTwitch 3s infinite;
+    }
+
+    .icon-ear::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        right: 4px;
+        bottom: 10px;
+        background: var(--wood-light);
+        border-radius: 50% 50% 0 0;
+    }
+
+    .icon-ear.left-ear { animation-delay: 0.5s; }
+    .icon-ear.right-ear { animation-delay: 1s; }
+
+    @keyframes earTwitch {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-10deg); }
+        75% { transform: rotate(10deg); }
     }
 
     .login-title {
-        color: #ffffff;
-        font-size: 2.2em;
-        font-weight: 700;
+        color: var(--wood-dark);
+        font-size: 2.5em;
+        font-weight: 800;
         margin-bottom: 10px;
         letter-spacing: -0.5px;
+        font-family: 'Georgia', serif;
+        text-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
+    }
+
+    body.dark-theme .login-title {
+        color: var(--wood-light);
     }
 
     .login-subtitle {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.95em;
+        color: var(--text-light);
+        font-size: 1.1em;
         font-weight: 400;
+        max-width: 300px;
+        margin: 0 auto;
+        line-height: 1.5;
     }
 
     /* Стили полей ввода */
     .input-group {
         position: relative;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
     }
 
     .login-input {
@@ -86,25 +156,31 @@
         padding: 18px 25px 18px 55px;
         font-size: 1em;
         border-radius: 50px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #ffffff;
+        background: rgba(222, 184, 135, 0.1);
+        border: var(--border-wood);
+        color: var(--text-dark);
         outline: none;
         transition: all 0.3s ease;
-        font-weight: 400;
+        font-weight: 500;
+        box-shadow: 
+            inset 0 2px 4px rgba(139, 69, 19, 0.05),
+            0 2px 8px rgba(139, 69, 19, 0.08);
     }
 
     .login-input::placeholder {
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--text-light);
+        opacity: 0.7;
     }
 
     .login-input:focus {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(59, 130, 246, 0.6);
+        background: rgba(244, 164, 96, 0.15);
+        border-color: var(--accent-gold);
         box-shadow: 
-            0 0 0 3px rgba(59, 130, 246, 0.15),
-            0 0 20px rgba(59, 130, 246, 0.1);
+            0 0 0 3px rgba(244, 164, 96, 0.1),
+            0 0 20px rgba(244, 164, 96, 0.15),
+            inset 0 2px 4px rgba(139, 69, 19, 0.05);
         transform: translateY(-2px);
+        color: var(--wood-dark);
     }
 
     .input-icon {
@@ -112,15 +188,15 @@
         left: 20px;
         top: 50%;
         transform: translateY(-50%);
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 1.1em;
+        color: var(--wood-medium);
+        font-size: 1.2em;
         z-index: 2;
         transition: all 0.3s ease;
     }
 
     .login-input:focus + .input-icon {
-        color: #3b82f6;
-        transform: translateY(-50%) scale(1.1);
+        color: var(--accent-gold);
+        transform: translateY(-50%) scale(1.2) rotate(5deg);
     }
 
     /* Стили кнопки */
@@ -129,65 +205,107 @@
         padding: 18px;
         margin-top: 10px;
         border-radius: 50px;
-        font-size: 1.1em;
-        font-weight: 600;
+        font-size: 1.2em;
+        font-weight: 700;
         letter-spacing: 0.5px;
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        border: none;
-        color: white;
+        background: linear-gradient(135deg, 
+            var(--wood-sand) 0%, 
+            var(--accent-gold) 100%);
+        border: 2px solid rgba(244, 164, 96, 0.3);
+        color: var(--cream);
         cursor: pointer;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+        box-shadow: 
+            0 8px 25px rgba(244, 164, 96, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        font-family: 'Georgia', serif;
     }
 
     .login-btn:hover {
         transform: translateY(-3px);
+        background: linear-gradient(135deg, 
+            var(--accent-gold) 0%, 
+            var(--wood-sand) 100%);
         box-shadow: 
-            0 15px 35px rgba(59, 130, 246, 0.35),
-            inset 0 0 30px rgba(255, 255, 255, 0.1);
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            0 15px 35px rgba(244, 164, 96, 0.4),
+            inset 0 0 30px rgba(255, 255, 255, 0.2);
+        border-color: rgba(244, 164, 96, 0.5);
     }
 
     .login-btn:active {
         transform: translateY(-1px);
     }
 
+    /* Эффект хвостика на кнопке */
+    .login-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        right: 20px;
+        width: 20px;
+        height: 40px;
+        background: var(--wood-sand);
+        border-radius: 50% 50% 0 0;
+        transform: rotate(45deg);
+        opacity: 0.5;
+        transition: all 0.3s ease;
+    }
+
+    .login-btn:hover::after {
+        transform: rotate(45deg) translateY(-5px);
+        opacity: 0.8;
+        background: var(--accent-gold);
+    }
+
     /* Стили для футера */
     .login-footer {
         text-align: center;
-        margin-top: 35px;
+        margin-top: 40px;
         padding-top: 25px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 2px solid rgba(244, 164, 96, 0.3);
     }
 
     .footer-text {
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 0.85em;
+        color: var(--text-light);
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
     }
 
     /* Стили ошибки */
     .error-message {
-        background: rgba(239, 68, 68, 0.15);
-        border: 1px solid rgba(239, 68, 68, 0.3);
-        color: #fecaca;
+        background: rgba(139, 69, 19, 0.15);
+        border: 2px solid rgba(139, 69, 19, 0.3);
+        color: var(--wood-dark);
         padding: 16px;
         border-radius: 12px;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         text-align: center;
-        font-size: 0.9em;
+        font-size: 0.95em;
         backdrop-filter: blur(5px);
         animation: slideIn 0.5s ease;
+        font-weight: 600;
+    }
+
+    body.dark-theme .error-message {
+        background: rgba(244, 164, 96, 0.15);
+        color: var(--wood-light);
+        border-color: rgba(244, 164, 96, 0.3);
     }
 
     /* Фоновые элементы */
-    .bg-gradient-1 {
+    .bg-wood-1 {
         position: absolute;
         width: 400px;
         height: 400px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+        background: radial-gradient(circle, 
+            rgba(244, 164, 96, 0.1) 0%, 
+            transparent 70%);
         filter: blur(40px);
         top: 50%;
         left: 50%;
@@ -196,24 +314,79 @@
         pointer-events: none;
     }
 
+    /* Деревянные декорации */
+    .wood-decoration {
+        position: absolute;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0.5;
+    }
+
+    .wood-screw {
+        width: 8px;
+        height: 8px;
+        background: var(--accent-gold);
+        border-radius: 50%;
+        box-shadow: 
+            0 0 0 2px rgba(139, 69, 19, 0.3),
+            inset 0 0 4px rgba(255, 255, 255, 0.5);
+    }
+
     /* Уведомление о пароле */
     .password-hint {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: rgba(30, 41, 59, 0.95);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        border-left: 4px solid #3b82f6;
-        color: #e2e8f0;
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.95), 
+            rgba(244, 164, 96, 0.9));
+        border: var(--border-wood);
+        border-left: 4px solid var(--accent-gold);
+        color: var(--wood-dark);
         padding: 15px 20px;
-        border-radius: 12px;
+        border-radius: 15px;
         font-size: 0.9em;
+        font-weight: 600;
         z-index: 1000;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        box-shadow: 
+            0 10px 30px rgba(139, 69, 19, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
         animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
         max-width: 300px;
         display: none;
+    }
+
+    body.dark-theme .password-hint {
+        background: linear-gradient(135deg, 
+            rgba(78, 52, 46, 0.95), 
+            rgba(93, 64, 55, 0.9));
+        color: var(--wood-light);
+    }
+
+    /* Кавайное уведомление */
+    .kawaii-notice {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, 
+            rgba(255, 182, 193, 0.95), 
+            rgba(255, 182, 193, 0.8));
+        border: 2px solid rgba(255, 105, 180, 0.3);
+        color: #8B4513;
+        padding: 12px 18px;
+        border-radius: 20px;
+        font-size: 0.85em;
+        font-weight: 600;
+        z-index: 1000;
+        box-shadow: 0 8px 25px rgba(255, 182, 193, 0.3);
+        animation: bounceIn 0.8s ease;
+        display: none;
+    }
+
+    .kawaii-notice i {
+        margin-right: 8px;
+        color: #FF69B4;
     }
 
     @keyframes slideIn {
@@ -245,32 +418,142 @@
         }
     }
 
+    @keyframes bounceIn {
+        0% {
+            transform: scale(0.3);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Ссылка на регистрацию */
+    .register-link {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(244, 164, 96, 0.2);
+    }
+
+    .register-link a {
+        color: var(--accent-gold);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .register-link a:hover {
+        color: var(--wood-dark);
+        transform: translateY(-2px);
+        text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
         .login-card {
             padding: 40px 30px;
+            max-width: 90%;
+            margin: 0 auto;
         }
         
         .login-title {
-            font-size: 1.9em;
+            font-size: 2em;
+        }
+        
+        .login-icon {
+            font-size: 3.5em;
+        }
+        
+        .icon-ears {
+            width: 50px;
+            height: 25px;
+            gap: 12px;
+        }
+        
+        .icon-ear {
+            width: 12px;
+            height: 20px;
         }
         
         .login-input {
             padding: 16px 20px 16px 50px;
         }
+        
+        .bg-wood-1 {
+            width: 300px;
+            height: 300px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .login-card {
+            padding: 30px 25px;
+        }
+        
+        .login-title {
+            font-size: 1.8em;
+        }
+        
+        .login-icon {
+            font-size: 3em;
+        }
+        
+        .login-subtitle {
+            font-size: 1em;
+        }
+        
+        .login-btn {
+            padding: 16px;
+            font-size: 1.1em;
+        }
     }
 </style>
 
 <div class="login-page-container">
-    <div class="bg-gradient-1"></div>
+    <!-- Фоновые элементы -->
+    <div class="bg-wood-1"></div>
+    
+    <!-- Деревянные декорации -->
+    <div class="wood-decoration" style="top: 10%; left: 10%;">
+        <div class="wood-screw"></div>
+    </div>
+    <div class="wood-decoration" style="bottom: 20%; right: 15%;">
+        <div class="wood-screw" style="transform: rotate(45deg);"></div>
+    </div>
+    <div class="wood-decoration" style="top: 15%; right: 5%; animation: float 4s ease-in-out infinite;">
+        <i class="fas fa-tools" style="font-size: 1.5rem; color: var(--wood-sand);"></i>
+    </div>
+    <div class="wood-decoration" style="bottom: 10%; left: 5%; animation: float 6s ease-in-out infinite reverse;">
+        <i class="fas fa-chair" style="font-size: 1.5rem; color: var(--wood-sand);"></i>
+    </div>
     
     <div class="login-form-container">
         <div class="login-card">
             <div class="login-header">
                 <div class="login-icon">
-                    <i class="fas fa-user-shield"></i>
+                    <div class="icon-ears">
+                        <div class="icon-ear left-ear"></div>
+                        <div class="icon-ear right-ear"></div>
+                    </div>
+                    <i class="fas fa-key"></i>
                 </div>
                 <h1 class="login-title">Вход в систему</h1>
-                <p class="login-subtitle">Войдите в свою учетную запись</p>
+                <p class="login-subtitle">Добро пожаловать в RepairService</p>
             </div>
             
             <form method="post">
@@ -278,8 +561,8 @@
                 
                 {% if form.errors %}
                     <div class="error-message">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Неверное имя пользователя или пароль
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Неверный логин или пароль
                     </div>
                 {% endif %}
                 
@@ -309,14 +592,21 @@
                 </div>
                 
                 <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Войти в систему
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Войти
                 </button>
             </form>
             
+            <div class="register-link">
+                <a href="{% url 'register' %}">
+                    <i class="fas fa-user-plus"></i>
+                    Нет аккаунта? Зарегистрироваться
+                </a>
+            </div>
+            
             <div class="login-footer">
                 <p class="footer-text">
-                    <i class="fas fa-shield-alt me-1"></i>
+                    <i class="fas fa-tools me-1"></i>
                     RepairService © 2024
                 </p>
             </div>
@@ -324,27 +614,43 @@
     </div>
 </div>
 
+<!-- Кавайное уведомление -->
+<div class="kawaii-notice" id="kawaiiNotice">
+    <i class="fas fa-cat"></i>
+    Привет! Давай войдём в систему! 🐾
+</div>
+
 <!-- Уведомление о пароле -->
 <div class="password-hint" id="passwordHint">
-    <i class="fas fa-smile-wink me-2"></i>
-    Если забыли - придется вспомнить :)
+    <i class="fas fa-lightbulb me-2"></i>
+    Забыли пароль? Придётся вспомнить! 😸
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const passwordField = document.querySelector('.password-field');
         const passwordHint = document.getElementById('passwordHint');
+        const kawaiiNotice = document.getElementById('kawaiiNotice');
         const loginCard = document.querySelector('.login-card');
+        
+        // Показать кавайное уведомление при загрузке
+        setTimeout(() => {
+            kawaiiNotice.style.display = 'block';
+            setTimeout(() => {
+                kawaiiNotice.style.animation = 'slideInRight 0.5s ease reverse';
+                setTimeout(() => kawaiiNotice.remove(), 500);
+            }, 3000);
+        }, 1000);
         
         // Анимация появления формы
         loginCard.style.opacity = '0';
-        loginCard.style.transform = 'translateY(20px)';
+        loginCard.style.transform = 'translateY(20px) scale(0.95)';
         
         setTimeout(() => {
-            loginCard.style.transition = 'all 0.6s ease';
+            loginCard.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
             loginCard.style.opacity = '1';
-            loginCard.style.transform = 'translateY(0)';
-        }, 200);
+            loginCard.style.transform = 'translateY(0) scale(1)';
+        }, 300);
         
         // Показ уведомления при фокусе на поле пароля
         passwordField.addEventListener('focus', function() {
@@ -352,6 +658,11 @@
             passwordHint.style.animation = 'none';
             void passwordHint.offsetWidth;
             passwordHint.style.animation = 'slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards';
+            
+            // Анимация иконки замка
+            const lockIcon = this.previousElementSibling;
+            lockIcon.style.animation = 'bounceIn 0.5s ease';
+            setTimeout(() => lockIcon.style.animation = '', 500);
         });
         
         // Анимация полей ввода
@@ -360,32 +671,100 @@
         
         inputs.forEach((input, index) => {
             input.style.opacity = '0';
-            input.style.transform = 'translateX(-15px)';
+            input.style.transform = 'translateX(-20px)';
             
             setTimeout(() => {
-                input.style.transition = 'all 0.4s ease';
+                input.style.transition = 'all 0.5s ease';
                 input.style.opacity = '1';
                 input.style.transform = 'translateX(0)';
-            }, 400 + (index * 100));
+                
+                // Добавить эффект при вводе
+                input.addEventListener('input', function() {
+                    if (this.value.length > 0) {
+                        this.style.borderColor = 'var(--accent-gold)';
+                        this.style.boxShadow = '0 0 15px rgba(244, 164, 96, 0.2)';
+                    } else {
+                        this.style.borderColor = '';
+                        this.style.boxShadow = '';
+                    }
+                });
+            }, 400 + (index * 150));
         });
         
         icons.forEach((icon, index) => {
             icon.style.opacity = '0';
+            icon.style.transform = 'translateX(-10px)';
             
             setTimeout(() => {
-                icon.style.transition = 'all 0.4s ease';
+                icon.style.transition = 'all 0.5s ease';
                 icon.style.opacity = '1';
-            }, 500 + (index * 100));
+                icon.style.transform = 'translateX(0)';
+            }, 500 + (index * 150));
         });
-    });
-    
-    // Дополнительный скрипт для уведомления
-    document.querySelector('.password-field').addEventListener('click', function() {
-        const hint = document.getElementById('passwordHint');
-        if (hint.style.display === 'none') {
-            hint.style.display = 'block';
-            hint.style.animation = 'slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards';
+        
+        // Анимация кнопки
+        const loginBtn = document.querySelector('.login-btn');
+        loginBtn.style.opacity = '0';
+        loginBtn.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            loginBtn.style.transition = 'all 0.6s ease';
+            loginBtn.style.opacity = '1';
+            loginBtn.style.transform = 'translateY(0)';
+        }, 800);
+        
+        // Эффект при наведении на поля формы
+        const formGroups = document.querySelectorAll('.input-group');
+        formGroups.forEach(group => {
+            group.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.input-icon');
+                icon.style.transform = 'translateY(-50%) scale(1.1)';
+                icon.style.color = 'var(--accent-gold)';
+            });
+            
+            group.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.input-icon');
+                const input = this.querySelector('.login-input');
+                if (!input.matches(':focus')) {
+                    icon.style.transform = 'translateY(-50%) scale(1)';
+                    icon.style.color = '';
+                }
+            });
+        });
+        
+        // Анимация при отправке формы
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            const btn = this.querySelector('.login-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Входим...';
+            btn.disabled = true;
+            
+            // Анимация загрузки
+            setTimeout(() => {
+                btn.style.transform = 'scale(0.95)';
+                btn.style.opacity = '0.8';
+            }, 100);
+        });
+        
+        // Эффект при клике на ссылку регистрации
+        const registerLink = document.querySelector('.register-link a');
+        if (registerLink) {
+            registerLink.addEventListener('click', function(e) {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
         }
+        
+        // Дополнительный скрипт для уведомления
+        passwordField.addEventListener('click', function() {
+            const hint = document.getElementById('passwordHint');
+            if (hint.style.display === 'none') {
+                hint.style.display = 'block';
+                hint.style.animation = 'slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards';
+            }
+        });
     });
 </script>
 {% endblock %}

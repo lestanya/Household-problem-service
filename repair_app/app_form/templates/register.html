@@ -9,24 +9,55 @@
         align-items: center;
         justify-content: center;
         padding: 2rem;
-        background: linear-gradient(135deg, #0a0e1a 0%, #1a2338 100%);
+        position: relative;
+        overflow: hidden;
     }
+
+    /* Фоновые декорации */
+    .register-decoration {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0.3;
+        z-index: 1;
+    }
+
+    .wood-tool {
+        font-size: 2.5rem;
+        color: var(--wood-sand);
+        filter: drop-shadow(0 0 10px rgba(244, 164, 96, 0.3));
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .wood-tool-1 { top: 10%; left: 5%; animation-delay: 0s; }
+    .wood-tool-2 { top: 15%; right: 8%; animation-delay: -2s; }
+    .wood-tool-3 { bottom: 20%; left: 10%; animation-delay: -4s; }
+    .wood-tool-4 { bottom: 15%; right: 5%; animation-delay: -1s; }
 
     .register-card {
         background: linear-gradient(135deg, 
-            rgba(20, 30, 50, 0.95) 0%, 
-            rgba(15, 25, 45, 0.9) 100%);
+            rgba(222, 184, 135, 0.15) 0%, 
+            rgba(244, 164, 96, 0.1) 100%);
         backdrop-filter: blur(25px);
         border-radius: 30px;
         padding: 4rem;
         width: 100%;
         max-width: 500px;
-        border: 1px solid rgba(0, 243, 255, 0.3);
+        border: var(--border-wood);
         box-shadow: 
-            0 30px 60px rgba(0, 0, 0, 0.5),
-            0 0 50px rgba(0, 243, 255, 0.1);
+            0 30px 60px rgba(139, 69, 19, 0.2),
+            0 0 50px rgba(244, 164, 96, 0.15);
         position: relative;
         overflow: hidden;
+        z-index: 2;
+        transition: all 0.4s ease;
+    }
+
+    .register-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-gold);
+        box-shadow: 
+            0 40px 70px rgba(139, 69, 19, 0.25),
+            0 0 60px rgba(244, 164, 96, 0.2);
     }
 
     .register-card::before {
@@ -35,186 +66,456 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 1px;
+        height: 4px;
         background: linear-gradient(90deg, 
-            transparent, rgba(0, 243, 255, 0.8), transparent);
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold),
+            var(--wood-sand),
+            var(--wood-dark));
     }
 
     .register-header {
         text-align: center;
         margin-bottom: 3rem;
+        position: relative;
     }
 
     .register-title {
         font-size: 2.8rem;
         font-weight: 900;
-        background: linear-gradient(135deg, #00f3ff, #0066ff);
+        background: linear-gradient(135deg, 
+            var(--wood-dark), 
+            var(--accent-gold));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 1rem;
+        font-family: 'Georgia', serif;
+        text-shadow: 0 2px 10px rgba(139, 69, 19, 0.2);
     }
 
     .register-subtitle {
-        color: #94a3b8;
+        color: var(--text-light);
         font-size: 1.1rem;
         margin-bottom: 2rem;
+        line-height: 1.5;
     }
 
     .role-badge {
         display: inline-flex;
         align-items: center;
-        background: rgba(0, 255, 136, 0.15);
-        color: #80ffd4;
-        padding: 0.5rem 1.5rem;
+        background: linear-gradient(135deg, 
+            rgba(244, 164, 96, 0.2), 
+            rgba(212, 175, 55, 0.15));
+        color: var(--wood-dark);
+        padding: 0.8rem 2rem;
         border-radius: 50px;
-        border: 1px solid rgba(0, 255, 136, 0.3);
+        border: 2px solid rgba(244, 164, 96, 0.4);
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 1rem;
         margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(244, 164, 96, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .role-badge:hover {
+        transform: translateY(-3px) scale(1.05);
+        background: linear-gradient(135deg, 
+            rgba(244, 164, 96, 0.3), 
+            rgba(212, 175, 55, 0.2));
+        border-color: var(--accent-gold);
+        box-shadow: 0 10px 30px rgba(244, 164, 96, 0.3);
+    }
+
+    /* Анимация для бейджа роли */
+    @keyframes badgeFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    .role-badge i {
+        margin-right: 10px;
+        color: var(--accent-gold);
+        font-size: 1.2rem;
     }
 
     .form-group {
-        margin-bottom: 2rem;
+        margin-bottom: 2.2rem;
+        position: relative;
     }
 
     .form-group label {
         display: block;
-        color: #80d4ff;
+        color: var(--wood-medium);
         font-weight: 600;
         margin-bottom: 1rem;
         font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        transition: all 0.3s ease;
     }
 
     .form-group input {
         width: 100%;
-        padding: 1.2rem 1.5rem;
-        background: rgba(25, 35, 55, 0.8);
-        border: 2px solid rgba(0, 153, 255, 0.3);
+        padding: 1.3rem 1.5rem 1.3rem 3.5rem;
+        background: rgba(222, 184, 135, 0.1);
+        border: var(--border-wood);
         border-radius: 15px;
-        color: #ffffff;
+        color: var(--text-dark);
         font-size: 1.1rem;
         transition: all 0.3s ease;
         backdrop-filter: blur(10px);
+        box-shadow: 
+            inset 0 2px 8px rgba(139, 69, 19, 0.05),
+            0 2px 10px rgba(139, 69, 19, 0.08);
     }
 
     .form-group input:focus {
-        background: rgba(35, 45, 70, 0.9);
-        border-color: rgba(0, 243, 255, 0.6);
+        background: rgba(244, 164, 96, 0.15);
+        border-color: var(--accent-gold);
         outline: none;
         box-shadow: 
-            0 0 0 4px rgba(0, 243, 255, 0.15),
-            0 0 30px rgba(0, 243, 255, 0.2);
+            0 0 0 4px rgba(244, 164, 96, 0.1),
+            0 0 30px rgba(244, 164, 96, 0.15),
+            inset 0 2px 8px rgba(139, 69, 19, 0.05);
         transform: translateY(-2px);
     }
 
-    .password-strength {
-        margin-top: 0.5rem;
-        font-size: 0.85rem;
-        min-height: 20px;
+    /* Иконки в полях ввода */
+    .form-group::before {
+        content: '';
+        position: absolute;
+        left: 1.2rem;
+        top: 4rem;
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--wood-medium);
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        z-index: 2;
     }
 
-    .strength-weak { color: #ff6b6b; }
-    .strength-medium { color: #ffaa00; }
-    .strength-strong { color: #00ff88; }
+    .form-group:nth-child(1)::before { content: '\f007'; } /* ФИО */
+    .form-group:nth-child(2)::before { content: '\f095'; } /* Телефон */
+    .form-group:nth-child(3)::before { content: '\f2bd'; } /* Логин */
+    .form-group:nth-child(4)::before { content: '\f023'; } /* Пароль */
+    .form-group:nth-child(5)::before { content: '\f09c'; } /* Подтверждение пароля */
+
+    .form-group input:focus + .form-group::before {
+        color: var(--accent-gold);
+        transform: scale(1.2);
+    }
+
+    .password-strength {
+        margin-top: 0.8rem;
+        font-size: 0.9rem;
+        min-height: 24px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        padding-left: 0.5rem;
+    }
+
+    .strength-weak { 
+        color: #A0522D; 
+        background: rgba(160, 82, 45, 0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 8px;
+    }
+    .strength-medium { 
+        color: #F4A460; 
+        background: rgba(244, 164, 96, 0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 8px;
+    }
+    .strength-strong { 
+        color: #D4AF37; 
+        background: rgba(212, 175, 55, 0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 8px;
+    }
+
+    /* Индикатор силы пароля */
+    .strength-bar {
+        height: 4px;
+        background: rgba(222, 184, 135, 0.2);
+        border-radius: 2px;
+        margin-top: 0.3rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .strength-bar::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: var(--wood-dark);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+    }
+
+    .strength-weak .strength-bar::after { width: 33%; background: #A0522D; }
+    .strength-medium .strength-bar::after { width: 66%; background: #F4A460; }
+    .strength-strong .strength-bar::after { width: 100%; background: #D4AF37; }
 
     .register-btn {
         width: 100%;
-        padding: 1.3rem;
-        font-size: 1.2rem;
+        padding: 1.4rem;
+        font-size: 1.3rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #00f3ff, #0066ff);
+        background: linear-gradient(135deg, 
+            var(--wood-sand), 
+            var(--accent-gold));
         border: none;
-        color: #000;
+        color: var(--cream);
         border-radius: 15px;
         cursor: pointer;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 15px 35px rgba(0, 243, 255, 0.4);
+        box-shadow: 
+            0 15px 35px rgba(244, 164, 96, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.3);
         text-transform: uppercase;
         letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Georgia', serif;
     }
 
     .register-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 25px 50px rgba(0, 243, 255, 0.6);
+        transform: translateY(-3px) scale(1.02);
+        background: linear-gradient(135deg, 
+            var(--accent-gold), 
+            var(--wood-sand));
+        box-shadow: 
+            0 25px 50px rgba(244, 164, 96, 0.4),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    }
+
+    .register-btn:active {
+        transform: translateY(-1px) scale(0.98);
+    }
+
+    /* Эффект пульсации на кнопке */
+    .register-btn::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, 
+            rgba(255, 255, 255, 0.1) 0%, 
+            transparent 70%);
+        opacity: 0;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(0.5); opacity: 0; }
+        50% { opacity: 0.3; }
+        100% { transform: scale(1); opacity: 0; }
     }
 
     .register-link {
         text-align: center;
-        margin-top: 2rem;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 2px solid rgba(244, 164, 96, 0.3);
     }
 
     .register-link a {
-        color: #00f3ff;
+        color: var(--accent-gold);
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
     }
 
     .register-link a:hover {
-        text-decoration: underline;
+        color: var(--wood-dark);
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    .register-link a:hover i {
+        transform: translateX(5px);
+    }
+
+    .register-link i {
+        transition: transform 0.3s ease;
     }
 
     .error-message {
-        color: #ff6b6b;
+        color: #8B4513;
         font-size: 0.9rem;
-        margin-top: 0.5rem;
-        background: rgba(255, 107, 107, 0.1);
-        padding: 0.5rem;
-        border-radius: 8px;
-        border-left: 3px solid #ff6b6b;
+        margin-top: 0.8rem;
+        background: rgba(139, 69, 19, 0.1);
+        padding: 0.8rem 1rem;
+        border-radius: 10px;
+        border-left: 4px solid #8B4513;
+        font-weight: 600;
+    }
+
+    body.dark-theme .error-message {
+        color: #DEB887;
+        background: rgba(222, 184, 135, 0.1);
+        border-left-color: #DEB887;
+    }
+
+    /* Сообщения */
+    .register-message {
+        background: linear-gradient(135deg, 
+            rgba(139, 195, 74, 0.15), 
+            rgba(139, 195, 74, 0.1));
+        border: 2px solid rgba(139, 195, 74, 0.3);
+        color: #689f38;
+        padding: 1.2rem 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        font-weight: 600;
+    }
+
+    .register-message.error {
+        background: linear-gradient(135deg, 
+            rgba(244, 67, 54, 0.15), 
+            rgba(244, 67, 54, 0.1));
+        border: 2px solid rgba(244, 67, 54, 0.3);
+        color: #d32f2f;
+    }
+
+    /* Анимации */
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade {
+        animation: fadeInUp 0.6s ease-out;
     }
 
     @media (max-width: 768px) {
         .register-container {
             padding: 1rem;
         }
+        
         .register-card {
             padding: 2.5rem 2rem;
+            max-width: 90%;
         }
+        
         .register-title {
             font-size: 2.2rem;
+        }
+        
+        .register-decoration {
+            display: none;
+        }
+        
+        .form-group input {
+            padding: 1.1rem 1.3rem 1.1rem 3rem;
+        }
+        
+        .register-btn {
+            padding: 1.2rem;
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .register-card {
+            padding: 2rem 1.5rem;
+        }
+        
+        .register-title {
+            font-size: 1.8rem;
+        }
+        
+        .role-badge {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-group label {
+            font-size: 0.9rem;
+        }
+        
+        .form-group input {
+            font-size: 1rem;
         }
     }
 </style>
 
 <div class="register-container">
-    <div class="register-card">
+    <!-- Декоративные элементы -->
+    <div class="register-decoration wood-tool-1">
+        <i class="fas fa-tools wood-tool"></i>
+    </div>
+    <div class="register-decoration wood-tool-2">
+        <i class="fas fa-hammer wood-tool"></i>
+    </div>
+    <div class="register-decoration wood-tool-3">
+        <i class="fas fa-wrench wood-tool"></i>
+    </div>
+    <div class="register-decoration wood-tool-4">
+        <i class="fas fa-screwdriver wood-tool"></i>
+    </div>
+
+    <div class="register-card animate-fade">
         <div class="register-header">
             <h1 class="register-title">
                 <i class="fas fa-user-plus"></i> Регистрация
             </h1>
-            <p class="register-subtitle">Создайте аккаунт заказчика</p>
-            <div class="role-badge">
-                <i class="fas fa-user me-2"></i> Роль: Заказчик
+            <p class="register-subtitle">Присоединяйтесь к нашему сервису ремонта мебели</p>
+            <div class="role-badge" style="animation: badgeFloat 3s ease-in-out infinite;">
+                <i class="fas fa-crown"></i> 
+                <span>Роль: Заказчик</span>
             </div>
         </div>
 
         <!-- Сообщения -->
         {% if messages %}
             {% for message in messages %}
-            <div style="
-                background: {% if message.tags == 'success' %}rgba(0, 255, 136, 0.2){% else %}rgba(255, 71, 87, 0.2){% endif %};
-                border: 1px solid {% if message.tags == 'success' %}rgba(0, 255, 136, 0.4){% else %}rgba(255, 71, 87, 0.4){% endif %};
-                color: {% if message.tags == 'success' %}#80ffd4{% else %}#ffcccc{% endif %};
-                padding: 1rem; border-radius: 12px; margin-bottom: 2rem;
-                backdrop-filter: blur(10px);
-            ">
+            <div class="register-message {% if message.tags == 'error' %}error{% endif %} animate-fade">
                 <i class="fas 
                     {% if message.tags == 'success' %}fa-check-circle
-                    {% else %}fa-exclamation-triangle{% endif %} me-2"></i>
+                    {% elif message.tags == 'error' %}fa-exclamation-triangle
+                    {% else %}fa-info-circle{% endif %} me-2"></i>
                 {{ message }}
             </div>
             {% endfor %}
         {% endif %}
 
         <!-- Форма регистрации -->
-        <form method="post">
+        <form method="post" id="registerForm">
             {% csrf_token %}
             
             <!-- ФИО -->
-            <div class="form-group">
-                <label><i class="fas fa-user me-1"></i> ФИО</label>
+            <div class="form-group animate-fade" style="animation-delay: 0.1s;">
+                <label><i class="fas fa-user-tag"></i> ФИО</label>
                 {{ form.fio }}
                 {% if form.fio.errors %}
                     {% for error in form.fio.errors %}
@@ -224,8 +525,8 @@
             </div>
             
             <!-- Телефон -->
-            <div class="form-group">
-                <label><i class="fas fa-phone me-1"></i> Телефон</label>
+            <div class="form-group animate-fade" style="animation-delay: 0.2s;">
+                <label><i class="fas fa-phone-alt"></i> Телефон</label>
                 {{ form.phone }}
                 {% if form.phone.errors %}
                     {% for error in form.phone.errors %}
@@ -235,8 +536,8 @@
             </div>
             
             <!-- Логин -->
-            <div class="form-group">
-                <label><i class="fas fa-user-circle me-1"></i> Логин</label>
+            <div class="form-group animate-fade" style="animation-delay: 0.3s;">
+                <label><i class="fas fa-user-circle"></i> Логин</label>
                 {{ form.username }}
                 {% if form.username.errors %}
                     {% for error in form.username.errors %}
@@ -246,10 +547,13 @@
             </div>
             
             <!-- Пароль -->
-            <div class="form-group">
-                <label><i class="fas fa-lock me-1"></i> Пароль</label>
+            <div class="form-group animate-fade" style="animation-delay: 0.4s;">
+                <label><i class="fas fa-lock"></i> Пароль</label>
                 {{ form.password1 }}
-                <div id="passwordStrength" class="password-strength"></div>
+                <div id="passwordStrength" class="password-strength">
+                    <span id="strengthText">Введите пароль</span>
+                    <div class="strength-bar"></div>
+                </div>
                 {% if form.password1.errors %}
                     {% for error in form.password1.errors %}
                         <div class="error-message">{{ error }}</div>
@@ -258,9 +562,10 @@
             </div>
             
             <!-- Подтверждение пароля -->
-            <div class="form-group">
-                <label><i class="fas fa-lock-open me-1"></i> Подтверждение пароля</label>
+            <div class="form-group animate-fade" style="animation-delay: 0.5s;">
+                <label><i class="fas fa-lock-open"></i> Подтверждение пароля</label>
                 {{ form.password2 }}
+                <div id="passwordMatch" style="margin-top: 0.5rem; font-size: 0.9rem; min-height: 20px;"></div>
                 {% if form.password2.errors %}
                     {% for error in form.password2.errors %}
                         <div class="error-message">{{ error }}</div>
@@ -269,53 +574,216 @@
             </div>
 
             <!-- Кнопка регистрации -->
-            <button type="submit" class="register-btn">
-                <i class="fas fa-rocket me-2"></i> Создать аккаунт заказчика
+            <button type="submit" class="register-btn animate-fade" style="animation-delay: 0.6s;">
+                <i class="fas fa-rocket me-2"></i> Создать аккаунт
             </button>
         </form>
 
         <!-- Ссылка на вход -->
-        <div class="register-link">
-            <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти в систему</a></p>
+        <div class="register-link animate-fade" style="animation-delay: 0.7s;">
+            <p>Уже есть аккаунт? 
+                <a href="{% url 'login' %}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Войти в систему
+                </a>
+            </p>
         </div>
     </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Анимация появления карточки
+    const registerCard = document.querySelector('.register-card');
+    registerCard.style.opacity = '0';
+    registerCard.style.transform = 'translateY(40px) scale(0.95)';
+    
+    setTimeout(() => {
+        registerCard.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        registerCard.style.opacity = '1';
+        registerCard.style.transform = 'translateY(0) scale(1)';
+    }, 300);
+    
     // Проверка силы пароля
     const passwordInput = document.querySelector('input[name="password1"]');
+    const confirmInput = document.querySelector('input[name="password2"]');
     const strengthDiv = document.getElementById('passwordStrength');
+    const strengthText = document.getElementById('strengthText');
+    const strengthBar = document.querySelector('.strength-bar');
+    const matchDiv = document.getElementById('passwordMatch');
     
     if (passwordInput && strengthDiv) {
         passwordInput.addEventListener('input', function() {
             const password = this.value;
             let strength = 0;
+            let message = '';
+            let strengthClass = '';
             
             // Критерии силы пароля
             if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
             if (/[A-Z]/.test(password)) strength++;
+            if (/[a-z]/.test(password)) strength++;
             if (/[0-9]/.test(password)) strength++;
             if (/[^A-Za-z0-9]/.test(password)) strength++;
             
-            // Отображение силы
-            switch(strength) {
-                case 0: 
-                case 1: 
-                    strengthDiv.textContent = 'Слишком слабый';
-                    strengthDiv.className = 'password-strength strength-weak';
-                    break;
-                case 2: 
-                    strengthDiv.textContent = 'Средний';
-                    strengthDiv.className = 'password-strength strength-medium';
-                    break;
-                case 3:
-                case 4: 
-                    strengthDiv.textContent = 'Сильный ✓';
-                    strengthDiv.className = 'password-strength strength-strong';
-                    break;
+            // Определение силы и сообщения
+            if (password.length === 0) {
+                message = 'Введите пароль';
+                strengthClass = '';
+            } else if (strength <= 2) {
+                message = '💤 Слабо';
+                strengthClass = 'strength-weak';
+            } else if (strength <= 4) {
+                message = '👍 Хорошо';
+                strengthClass = 'strength-medium';
+            } else {
+                message = '💪 Отлично!';
+                strengthClass = 'strength-strong';
+            }
+            
+            // Обновление отображения
+            strengthText.textContent = message;
+            strengthDiv.className = `password-strength ${strengthClass}`;
+            strengthBar.className = 'strength-bar';
+            strengthDiv.appendChild(strengthBar);
+            
+            // Анимация изменения силы
+            if (strength > 0) {
+                strengthDiv.style.animation = 'none';
+                void strengthDiv.offsetWidth;
+                strengthDiv.style.animation = 'fadeInUp 0.3s ease';
             }
         });
+    }
+    
+    // Проверка совпадения паролей
+    if (passwordInput && confirmInput && matchDiv) {
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirm = confirmInput.value;
+            
+            if (confirm.length === 0) {
+                matchDiv.textContent = '';
+                matchDiv.className = '';
+            } else if (password === confirm) {
+                matchDiv.innerHTML = '<i class="fas fa-check-circle me-1"></i> Пароли совпадают!';
+                matchDiv.style.color = '#689f38';
+                confirmInput.style.borderColor = '#689f38';
+            } else {
+                matchDiv.innerHTML = '<i class="fas fa-times-circle me-1"></i> Пароли не совпадают';
+                matchDiv.style.color = '#d32f2f';
+                confirmInput.style.borderColor = '#d32f2f';
+            }
+        }
+        
+        passwordInput.addEventListener('input', checkPasswordMatch);
+        confirmInput.addEventListener('input', checkPasswordMatch);
+    }
+    
+    // Анимация полей при фокусе
+    const formInputs = document.querySelectorAll('.form-group input');
+    formInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            const formGroup = this.closest('.form-group');
+            formGroup.style.transform = 'translateY(-5px)';
+            formGroup.style.transition = 'transform 0.3s ease';
+            
+            const label = formGroup.querySelector('label');
+            if (label) {
+                label.style.color = 'var(--accent-gold)';
+            }
+        });
+        
+        input.addEventListener('blur', function() {
+            const formGroup = this.closest('.form-group');
+            formGroup.style.transform = '';
+            
+            const label = formGroup.querySelector('label');
+            if (label && !this.value) {
+                label.style.color = '';
+            }
+        });
+        
+        // Анимация при вводе
+        input.addEventListener('input', function() {
+            if (this.value) {
+                this.style.background = 'rgba(244, 164, 96, 0.1)';
+            } else {
+                this.style.background = '';
+            }
+        });
+    });
+    
+    // Анимация кнопки при наведении
+    const registerBtn = document.querySelector('.register-btn');
+    registerBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px) scale(1.05)';
+    });
+    
+    registerBtn.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+    });
+    
+    // Анимация при отправке формы
+    const form = document.getElementById('registerForm');
+    form.addEventListener('submit', function(e) {
+        const btn = this.querySelector('.register-btn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Регистрируем...';
+        btn.disabled = true;
+        btn.style.animation = 'pulse 1s infinite';
+        
+        // Анимация отправки
+        setTimeout(() => {
+            btn.style.transform = 'scale(0.95)';
+            btn.style.opacity = '0.8';
+        }, 100);
+    });
+    
+    // Кавайная анимация для бейджа роли
+    const roleBadge = document.querySelector('.role-badge');
+    if (roleBadge) {
+        roleBadge.addEventListener('click', function() {
+            this.style.transform = 'scale(0.95) rotate(-5deg)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 300);
+            
+            // Показать милое уведомление
+            showNotification('Вы регистрируетесь как заказчик! 🎉', 'success');
+        });
+    }
+    
+    // Функция для показа уведомлений
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `register-message ${type}`;
+        notification.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            max-width: 300px;
+            z-index: 10000;
+            animation: slideInRight 0.5s ease;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.2);
+        `;
+        
+        const icon = type === 'success' ? 'fa-check-circle' : 
+                     type === 'error' ? 'fa-exclamation-triangle' : 
+                     'fa-info-circle';
+        
+        notification.innerHTML = `
+            <i class="fas ${icon} me-2"></i>
+            ${message}
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Автоматическое скрытие
+        setTimeout(() => {
+            notification.style.animation = 'slideInRight 0.5s ease reverse';
+            setTimeout(() => notification.remove(), 500);
+        }, 3000);
     }
 });
 </script>

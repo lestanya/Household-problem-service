@@ -3,8 +3,8 @@
 
 {% block content %}
 <style>
-    /* Копия ключевых стилей из index, чтобы сохранить стиль */
-    .main-container {
+    /* Стили для страницы статистики */
+    .stats-container {
         min-height: 70vh;
         display: flex;
         align-items: center;
@@ -12,187 +12,601 @@
         padding: 3rem 1rem;
     }
 
-    .hero-section {
-        max-width: 1200px;
+    .stats-section {
+        max-width: 1400px;
         width: 100%;
         margin: 0 auto;
     }
 
-    .main-card {
-        background: linear-gradient(135deg,
-            rgba(15, 25, 45, 0.8) 0%,
-            rgba(10, 20, 40, 0.6) 100%);
+    /* Основная карточка в деревянном стиле */
+    .wood-card {
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.15) 0%, 
+            rgba(244, 164, 96, 0.1) 100%);
         backdrop-filter: blur(25px);
         border-radius: 30px;
         padding: 3rem;
-        border: 1px solid rgba(0, 243, 255, 0.2);
-        box-shadow:
-            0 30px 60px -12px rgba(0, 0, 0, 0.5),
-            0 0 50px rgba(0, 243, 255, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        border: var(--border-wood);
+        box-shadow: 
+            0 30px 60px -12px rgba(139, 69, 19, 0.2),
+            0 0 50px rgba(244, 164, 96, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         position: relative;
         overflow: hidden;
         margin-bottom: 3rem;
+        transition: all 0.4s ease;
     }
 
-    .main-card::before {
+    .wood-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-gold);
+        box-shadow: 
+            0 40px 70px -15px rgba(139, 69, 19, 0.25),
+            0 0 60px rgba(244, 164, 96, 0.2);
+    }
+
+    .wood-card::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 1px;
-        background: linear-gradient(90deg,
-            transparent,
-            rgba(0, 243, 255, 0.8),
-            rgba(0, 102, 255, 0.8),
-            rgba(0, 243, 255, 0.8),
-            transparent);
+        height: 4px;
+        background: linear-gradient(90deg, 
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold),
+            var(--wood-sand),
+            var(--wood-dark));
     }
 
-    .system-title {
-        font-size: 2.4rem;
+    .stats-title {
+        font-size: 2.8rem;
         font-weight: 900;
-        background: linear-gradient(135deg, #00f3ff 0%, #0066ff 50%, #00f3ff 100%);
+        background: linear-gradient(135deg, 
+            var(--wood-dark) 0%, 
+            var(--accent-gold) 50%, 
+            var(--wood-dark) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 1.5rem;
-        text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        text-shadow: 0 0 20px rgba(139, 69, 19, 0.2);
         text-align: center;
+        font-family: 'Georgia', serif;
+        position: relative;
+        padding-bottom: 1rem;
     }
 
-    .stats-section {
-        margin-top: 1.5rem;
+    .stats-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 3px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            var(--accent-gold), 
+            transparent);
+        border-radius: 2px;
+    }
+
+    /* Основная статистика */
+    .main-stats {
+        margin-top: 2rem;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
     }
 
     .stat-card {
-        background: rgba(20, 30, 50, 0.5);
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.12), 
+            rgba(244, 164, 96, 0.08));
         border-radius: 20px;
-        padding: 2rem;
-        border: 1px solid rgba(0, 153, 255, 0.1);
+        padding: 2.5rem 2rem;
+        border: var(--border-wood);
         text-align: center;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
     }
 
     .stat-card:hover {
-        border-color: rgba(0, 243, 255, 0.3);
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 243, 255, 0.15);
+        border-color: var(--accent-gold);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 
+            0 20px 40px rgba(139, 69, 19, 0.2),
+            0 0 40px rgba(244, 164, 96, 0.15);
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, 
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold));
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        color: var(--accent-gold);
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover .stat-icon {
+        transform: scale(1.2) rotate(10deg);
+        color: var(--wood-sand);
     }
 
     .stat-number {
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #00f3ff, #0066ff);
+        background: linear-gradient(135deg, 
+            var(--wood-dark), 
+            var(--accent-gold));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 0.5rem;
+        line-height: 1;
+        font-family: 'Georgia', serif;
+        text-shadow: 0 2px 10px rgba(139, 69, 19, 0.1);
     }
 
     .stat-label {
-        color: #94a3b8;
-        font-size: 0.9rem;
+        color: var(--text-light);
+        font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 1px;
+        font-weight: 600;
+        margin-top: 0.5rem;
     }
 
+    /* Таблица статистики по типам */
     .types-card {
-        margin-top: 2rem;
-        background: rgba(20, 30, 50, 0.5);
-        border-radius: 20px;
-        padding: 2rem;
-        border: 1px solid rgba(0, 153, 255, 0.1);
+        margin-top: 3rem;
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.12), 
+            rgba(244, 164, 96, 0.08));
+        border-radius: 25px;
+        padding: 2.5rem;
+        border: var(--border-wood);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .types-card:hover {
+        border-color: var(--accent-gold);
+        box-shadow: 
+            0 25px 50px rgba(139, 69, 19, 0.15),
+            0 0 40px rgba(244, 164, 96, 0.1);
+    }
+
+    .types-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, 
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold));
     }
 
     .types-title {
-        font-size: 1.4rem;
-        color: #ffffff;
-        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        color: var(--wood-dark);
+        margin-bottom: 1.5rem;
+        font-family: 'Georgia', serif;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    body.dark-theme .types-title {
+        color: var(--wood-light);
+    }
+
+    .types-title i {
+        color: var(--accent-gold);
     }
 
     .types-table {
         width: 100%;
         border-collapse: collapse;
-        color: #e5e7eb;
+        color: var(--text-dark);
+        font-weight: 500;
+        border-radius: 15px;
+        overflow: hidden;
     }
 
-    .types-table th,
-    .types-table td {
-        padding: 0.6rem 0.8rem;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    .types-table thead {
+        background: linear-gradient(135deg, 
+            rgba(139, 69, 19, 0.2), 
+            rgba(244, 164, 96, 0.15));
     }
 
     .types-table th {
+        padding: 1.2rem 1rem;
         text-align: left;
-        color: #9ca3af;
-        font-size: 0.9rem;
+        color: var(--wood-dark);
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
+        border-bottom: 2px solid rgba(244, 164, 96, 0.3);
+    }
+
+    body.dark-theme .types-table th {
+        color: var(--wood-light);
+    }
+
+    .types-table td {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(244, 164, 96, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    .types-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .types-table tr:hover td {
+        background: rgba(244, 164, 96, 0.08);
+        color: var(--wood-dark);
+    }
+
+    /* Карточка для диаграммы */
+    .chart-card {
+        margin-top: 3rem;
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.12), 
+            rgba(244, 164, 96, 0.08));
+        border-radius: 25px;
+        padding: 2.5rem;
+        border: var(--border-wood);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .chart-card:hover {
+        border-color: var(--accent-gold);
+        box-shadow: 
+            0 25px 50px rgba(139, 69, 19, 0.15),
+            0 0 40px rgba(244, 164, 96, 0.1);
+    }
+
+    .chart-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, 
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold));
+    }
+
+    .chart-container {
+        position: relative;
+        height: 400px;
+        margin-top: 1rem;
+    }
+
+    /* Дополнительные статистические карточки */
+    .extra-stats {
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .extra-stat-card {
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.1), 
+            rgba(244, 164, 96, 0.07));
+        border-radius: 20px;
+        padding: 2rem;
+        border: var(--border-wood);
+        transition: all 0.3s ease;
+    }
+
+    .extra-stat-card:hover {
+        border-color: var(--accent-gold);
+        transform: translateY(-5px);
+        box-shadow: 
+            0 15px 35px rgba(139, 69, 19, 0.15),
+            0 0 30px rgba(244, 164, 96, 0.1);
+    }
+
+    .extra-stat-title {
+        font-size: 1.2rem;
+        color: var(--wood-dark);
+        margin-bottom: 1rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    body.dark-theme .extra-stat-title {
+        color: var(--wood-light);
+    }
+
+    .extra-stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent-gold);
+        font-family: 'Georgia', serif;
+    }
+
+    /* Анимации */
+    @keyframes woodSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px) rotateX(-10deg);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+    }
+
+    @keyframes countUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes woodGlow {
+        0%, 100% {
+            box-shadow: 
+                0 30px 60px -12px rgba(139, 69, 19, 0.2),
+                0 0 50px rgba(244, 164, 96, 0.15);
+        }
+        50% {
+            box-shadow: 
+                0 30px 60px -12px rgba(139, 69, 19, 0.25),
+                0 0 70px rgba(244, 164, 96, 0.2);
+        }
+    }
+
+    .animate-wood {
+        animation: woodSlideIn 0.6s ease-out;
+    }
+
+    .animate-count {
+        animation: countUp 0.8s ease-out;
+    }
+
+    /* Сообщение для неавторизованных */
+    .unauthorized-message {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-light);
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .unauthorized-message i {
+        font-size: 3rem;
+        color: var(--wood-sand);
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 1200px) {
+        .main-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .stats-container {
+            padding: 1.5rem;
+        }
+        
+        .wood-card {
+            padding: 2rem 1.5rem;
+        }
+        
+        .stats-title {
+            font-size: 2rem;
+        }
+        
+        .main-stats {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+        }
+        
+        .types-card,
+        .chart-card {
+            padding: 1.5rem;
+        }
+        
+        .chart-container {
+            height: 300px;
+        }
+        
+        .extra-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stats-title {
+            font-size: 1.6rem;
+        }
+        
+        .types-table {
+            font-size: 0.9rem;
+        }
+        
+        .types-table th,
+        .types-table td {
+            padding: 0.8rem 0.5rem;
+        }
     }
 </style>
 
-<div class="main-container">
-    <div class="hero-section">
-        <div class="main-card">
-            <h1 class="system-title">Статистика системы RepairControl</h1>
+<div class="stats-container">
+    <div class="stats-section">
+        <div class="wood-card animate-wood">
+            <h1 class="stats-title">
+                <i class="fas fa-chart-pie"></i> Статистика сервиса
+            </h1>
 
             {% if user.is_authenticated %}
-            <!-- Блок ключевых показателей -->
-            <div class="stats-section">
-                <div class="stat-card">
+            <!-- Основная статистика -->
+            <div class="main-stats">
+                <div class="stat-card animate-wood" style="animation-delay: 0.1s;">
+                    <i class="fas fa-check-circle stat-icon"></i>
                     <div class="stat-number" id="completedCount">0</div>
                     <div class="stat-label">Выполненных заявок</div>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card animate-wood" style="animation-delay: 0.2s;">
+                    <i class="fas fa-clock stat-icon"></i>
                     <div class="stat-number" id="avgTime">{{ avg_hours|floatformat:1 }}ч</div>
                     <div class="stat-label">Среднее время выполнения</div>
                 </div>
 
-                <div class="stat-card">
+                <div class="stat-card animate-wood" style="animation-delay: 0.3s;">
+                    <i class="fas fa-tools stat-icon"></i>
                     <div class="stat-number" id="typesCount">{{ type_stats|length }}</div>
                     <div class="stat-label">Типов неисправностей</div>
                 </div>
             </div>
 
             <!-- Таблица по типам неисправностей -->
-            <div class="types-card">
-                <h3 class="types-title">Статистика по типам неисправностей</h3>
-                <table class="types-table">
-                    <thead>
-                        <tr>
-                            <th>Тип оборудования</th>
-                            <th>Количество заявок</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in type_stats %}
-                        <tr>
-                            <td>{{ item.climate_tech_type }}</td>
-                            <td>{{ item.count }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="2" class="text-muted">Нет данных для отображения</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="types-card animate-wood" style="animation-delay: 0.4s;">
+                <h3 class="types-title">
+                    <i class="fas fa-clipboard-list"></i> Статистика по типам оборудования
+                </h3>
+                <div style="overflow-x: auto;">
+                    <table class="types-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-cog me-1"></i> Тип оборудования</th>
+                                <th><i class="fas fa-hashtag me-1"></i> Количество заявок</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in type_stats %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-{% if 'холодильник' in item.climate_tech_type|lower %}snowflake
+                                                   {% elif 'стиральн' in item.climate_tech_type|lower %}tshirt
+                                                   {% elif 'плит' in item.climate_tech_type|lower %}fire
+                                                   {% elif 'телевизор' in item.climate_tech_type|lower %}tv
+                                                   {% elif 'компьютер' in item.climate_tech_type|lower %}desktop
+                                                   {% else %}tools{% endif %} me-2"></i>
+                                    {{ item.climate_tech_type }}
+                                </td>
+                                <td>
+                                    <span class="badge" style="
+                                        background: rgba(244, 164, 96, 0.2);
+                                        color: var(--wood-dark);
+                                        padding: 0.4rem 0.8rem;
+                                        border-radius: 20px;
+                                        font-weight: 700;
+                                        border: 1px solid rgba(244, 164, 96, 0.3);
+                                    ">
+                                        {{ item.count }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="2" class="text-center" style="color: var(--text-light); padding: 2rem;">
+                                    <i class="fas fa-clipboard" style="font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
+                                    Нет данных для отображения
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Дополнительная статистика -->
+            <div class="extra-stats">
+                <div class="extra-stat-card animate-wood" style="animation-delay: 0.5s;">
+                    <h4 class="extra-stat-title">
+                        <i class="fas fa-calendar-alt"></i> Текущий месяц
+                    </h4>
+                    <div class="extra-stat-value">
+                        {% if month_stats %}{{ month_stats.0.count }}{% else %}0{% endif %}
+                    </div>
+                    <div style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;">
+                        заявок за текущий месяц
+                    </div>
+                </div>
+
+                <div class="extra-stat-card animate-wood" style="animation-delay: 0.6s;">
+                    <h4 class="extra-stat-title">
+                        <i class="fas fa-chart-line"></i> Эффективность
+                    </h4>
+                    <div class="extra-stat-value">
+                        {% if efficiency %}{{ efficiency }}%{% else %}0%{% endif %}
+                    </div>
+                    <div style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;">
+                        своевременное выполнение
+                    </div>
+                </div>
             </div>
 
             <!-- Круговая диаграмма по типам неисправностей -->
-            <div class="types-card" style="margin-top: 1.5rem;">
-                <h3 class="types-title">Диаграмма типов неисправностей</h3>
-                <canvas id="typesChart" height="120"></canvas>
+            <div class="chart-card animate-wood" style="animation-delay: 0.7s;">
+                <h3 class="types-title">
+                    <i class="fas fa-chart-pie"></i> Диаграмма типов оборудования
+                </h3>
+                <div class="chart-container">
+                    <canvas id="typesChart"></canvas>
+                </div>
             </div>
 
             {% else %}
-            <p class="text-center text-light mt-3">
-                Для просмотра статистики необходимо авторизоваться.
-            </p>
+            <!-- Сообщение для неавторизованных -->
+            <div class="unauthorized-message">
+                <i class="fas fa-lock"></i>
+                <p>Для просмотра статистики необходимо авторизоваться</p>
+                <a href="{% url 'login' %}" class="btn mt-3" style="
+                    background: linear-gradient(135deg, 
+                        var(--wood-sand), 
+                        var(--accent-gold));
+                    color: var(--cream);
+                    padding: 0.8rem 2rem;
+                    border-radius: 50px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    display: inline-block;
+                    transition: all 0.3s ease;
+                ">
+                    <i class="fas fa-sign-in-alt me-2"></i>Войти в систему
+                </a>
+            </div>
             {% endif %}
         </div>
     </div>
@@ -203,8 +617,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Анимация появления основной карточки (как на главной)
-        const mainCard = document.querySelector('.main-card');
+        // Анимация появления основной карточки
+        const mainCard = document.querySelector('.wood-card');
         mainCard.style.opacity = '0';
         mainCard.style.transform = 'translateY(40px) scale(0.95)';
 
@@ -214,44 +628,64 @@
             mainCard.style.transform = 'translateY(0) scale(1)';
         }, 300);
 
-        // Пульсация свечения карты
+        // Периодическая анимация свечения карты
         setInterval(() => {
-            mainCard.style.animation = 'pulse-glow 3s ease-in-out';
+            mainCard.style.animation = 'woodGlow 3s ease-in-out';
             setTimeout(() => {
                 mainCard.style.animation = '';
             }, 3000);
-        }, 8000);
+        }, 10000);
 
-        // Анимация чисел статистики (как на главной, но с реальными данными)
-        const completedTarget = {{ completed_count }};
-        const avgTimeEl = document.getElementById('avgTime');
-        const avgTimeVal = {{ avg_hours|floatformat:1 }};  // без суффикса
+        {% if user.is_authenticated %}
+        // Анимация чисел статистики
+        const completedTarget = {{ completed_count|default:0 }};
+        const avgTimeVal = {{ avg_hours|default:0|floatformat:1 }};
+        const typesTarget = {{ type_stats|length|default:0 }};
+
         const completedEl = document.getElementById('completedCount');
+        const avgTimeEl = document.getElementById('avgTime');
+        const typesEl = document.getElementById('typesCount');
 
-        function animateNumber(el, target, suffix = '') {
+        function animateNumber(el, target, suffix = '', duration = 800) {
+            if (!el || target === undefined) return;
+            
+            el.classList.add('animate-count');
             let current = 0;
-            const increment = (target || 0) / 60;
+            const increment = (target || 0) / (duration / 30);
+            const startTime = Date.now();
+            
             const timer = setInterval(() => {
                 current += increment;
-                if (current >= target) {
+                const elapsed = Date.now() - startTime;
+                
+                if (current >= target || elapsed >= duration) {
                     current = target;
                     clearInterval(timer);
+                    setTimeout(() => {
+                        el.classList.remove('animate-count');
+                    }, 300);
                 }
-                el.textContent = suffix === 'ч'
-                    ? current.toFixed(1) + suffix
+                
+                el.textContent = suffix === 'ч' 
+                    ? current.toFixed(1) + suffix 
                     : Math.round(current) + suffix;
             }, 30);
         }
 
-        animateNumber(completedEl, completedTarget, '');
-        animateNumber(avgTimeEl, avgTimeVal, 'ч');
+        // Запуск анимации с задержкой
+        setTimeout(() => {
+            animateNumber(completedEl, completedTarget, '');
+            animateNumber(avgTimeEl, avgTimeVal, 'ч');
+            animateNumber(typesEl, typesTarget, '');
+        }, 500);
 
-        // Круговая диаграмма по типам неисправностей
+        // Создание круговой диаграммы
         const labels = [
             {% for item in type_stats %}
                 "{{ item.climate_tech_type }}",
             {% endfor %}
         ];
+        
         const values = [
             {% for item in type_stats %}
                 {{ item.count }},
@@ -260,42 +694,137 @@
 
         if (labels.length && document.getElementById('typesChart')) {
             const ctx = document.getElementById('typesChart').getContext('2d');
-
+            
+            // Цвета для деревянной темы
             const colors = [
-                'rgba(0, 243, 255, 0.7)',
-                'rgba(0, 102, 255, 0.7)',
-                'rgba(56, 189, 248, 0.7)',
-                'rgba(129, 140, 248, 0.7)',
-                'rgba(45, 212, 191, 0.7)',
-                'rgba(248, 113, 113, 0.7)',
+                'rgba(139, 69, 19, 0.8)',      // wood-dark
+                'rgba(222, 184, 135, 0.8)',    // wood-light
+                'rgba(244, 164, 96, 0.8)',     // wood-sand
+                'rgba(212, 175, 55, 0.8)',     // accent-gold
+                'rgba(160, 82, 45, 0.8)',      // brown
+                'rgba(205, 127, 50, 0.8)',     // bronze
+                'rgba(218, 165, 32, 0.8)',     // goldenrod
+                'rgba(184, 134, 11, 0.8)',     // darkgoldenrod
             ];
 
-            new Chart(ctx, {
+            // Создание диаграммы
+            const chart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: labels,
                     datasets: [{
                         data: values,
                         backgroundColor: colors.slice(0, labels.length),
-                        borderColor: 'rgba(15, 23, 42, 1)',
+                        borderColor: 'rgba(255, 255, 255, 0.8)',
                         borderWidth: 2,
-                        hoverOffset: 6,
+                        hoverOffset: 12,
+                        hoverBorderColor: 'var(--accent-gold)',
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'bottom',
+                            position: 'right',
                             labels: {
-                                color: '#e5e7eb',
-                                padding: 16,
+                                color: 'var(--text-dark)',
+                                padding: 15,
+                                font: {
+                                    size: 13,
+                                    family: "'Segoe UI', 'Roboto', sans-serif"
+                                },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    if (data.labels.length && data.datasets.length) {
+                                        return data.labels.map((label, i) => {
+                                            const value = data.datasets[0].data[i];
+                                            return {
+                                                text: `${label} (${value})`,
+                                                fillStyle: data.datasets[0].backgroundColor[i],
+                                                strokeStyle: data.datasets[0].borderColor[i],
+                                                lineWidth: 1,
+                                                hidden: false,
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                    return [];
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(222, 184, 135, 0.95)',
+                            titleColor: 'var(--wood-dark)',
+                            bodyColor: 'var(--wood-dark)',
+                            borderColor: 'var(--accent-gold)',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
                             }
                         }
                     },
-                    cutout: '55%',
+                    cutout: '60%',
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    }
                 }
             });
+
+            // Анимация при наведении на диаграмму
+            const chartCanvas = document.getElementById('typesChart');
+            chartCanvas.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            chartCanvas.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
         }
+
+        // Анимация при наведении на карточки статистики
+        const statCards = document.querySelectorAll('.stat-card, .extra-stat-card');
+        statCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const number = this.querySelector('.stat-number, .extra-stat-value');
+                if (number) {
+                    number.style.transform = 'scale(1.1)';
+                    number.style.transition = 'transform 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const number = this.querySelector('.stat-number, .extra-stat-value');
+                if (number) {
+                    number.style.transform = 'scale(1)';
+                }
+            });
+        });
+
+        // Анимация строк таблицы
+        const tableRows = document.querySelectorAll('.types-table tbody tr');
+        tableRows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+            
+            setTimeout(() => {
+                row.style.transition = 'all 0.5s ease';
+                row.style.opacity = '1';
+                row.style.transform = 'translateX(0)';
+            }, 700 + (index * 100));
+        });
+        {% endif %}
     });
 </script>
 {% endblock %}

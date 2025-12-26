@@ -17,23 +17,33 @@
         margin: 0 auto;
     }
 
-    /* Основная карточка */
+    /* Основная карточка в стиле мебели */
     .main-card {
         background: linear-gradient(135deg, 
-            rgba(15, 25, 45, 0.8) 0%, 
-            rgba(10, 20, 40, 0.6) 100%);
+            rgba(222, 184, 135, 0.15) 0%, 
+            rgba(244, 164, 96, 0.1) 100%);
         backdrop-filter: blur(25px);
         border-radius: 30px;
         padding: 4rem;
-        border: 1px solid rgba(0, 243, 255, 0.2);
+        border: 2px solid var(--border-wood);
         box-shadow: 
-            0 30px 60px -12px rgba(0, 0, 0, 0.5),
-            0 0 50px rgba(0, 243, 255, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            0 30px 60px -12px rgba(139, 69, 19, 0.15),
+            0 0 50px rgba(244, 164, 96, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         text-align: center;
         position: relative;
         overflow: hidden;
         margin-bottom: 3rem;
+        transition: all 0.4s ease;
+    }
+
+    .main-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 
+            0 40px 70px -15px rgba(139, 69, 19, 0.25),
+            0 0 70px rgba(244, 164, 96, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        border-color: var(--wood-sand);
     }
 
     .main-card::before {
@@ -42,39 +52,43 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 1px;
+        height: 4px;
         background: linear-gradient(90deg, 
-            transparent, 
-            rgba(0, 243, 255, 0.8), 
-            rgba(0, 102, 255, 0.8), 
-            rgba(0, 243, 255, 0.8), 
-            transparent);
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold),
+            var(--wood-sand),
+            var(--wood-dark));
     }
 
     .main-icon {
         font-size: 6rem;
-        background: linear-gradient(135deg, #00f3ff, #0066ff);
+        background: linear-gradient(135deg, var(--wood-dark), var(--accent-gold));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 1.5rem;
-        filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.4));
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
         animation: icon-float 6s ease-in-out infinite;
     }
 
     .system-title {
         font-size: 3.5rem;
         font-weight: 900;
-        background: linear-gradient(135deg, #00f3ff 0%, #0066ff 50%, #00f3ff 100%);
+        background: linear-gradient(135deg, 
+            var(--wood-dark) 0%, 
+            var(--accent-gold) 50%, 
+            var(--wood-dark) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 1rem;
         letter-spacing: 1px;
-        text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        font-family: 'Georgia', serif;
+        text-shadow: 0 0 20px rgba(139, 69, 19, 0.2);
     }
 
     .system-subtitle {
         font-size: 1.4rem;
-        color: #94a3b8;
+        color: var(--text-light);
         margin-bottom: 2.5rem;
         max-width: 600px;
         margin-left: auto;
@@ -90,249 +104,381 @@
         font-size: 1.3rem;
         font-weight: 700;
         background: linear-gradient(135deg, 
-            rgba(0, 102, 255, 0.2) 0%, 
-            rgba(0, 243, 255, 0.15) 100%);
-        border: 2px solid transparent;
-        border-image: linear-gradient(135deg, #0066ff, #00f3ff) 1;
-        color: #ffffff;
+            rgba(139, 69, 19, 0.15) 0%, 
+            rgba(244, 164, 96, 0.1) 100%);
+        border: 2px solid var(--border-wood);
+        color: var(--wood-dark);
         border-radius: 15px;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
         box-shadow: 
-            0 10px 30px rgba(0, 102, 255, 0.3),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            0 10px 30px rgba(139, 69, 19, 0.15),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        font-family: 'Georgia', serif;
     }
 
     .main-btn:hover {
         transform: translateY(-5px) scale(1.05);
-        box-shadow: 
-            0 20px 40px rgba(0, 102, 255, 0.5),
-            0 0 50px rgba(0, 243, 255, 0.4),
-            inset 0 0 20px rgba(255, 255, 255, 0.1);
         background: linear-gradient(135deg, 
-            rgba(0, 243, 255, 0.2) 0%, 
-            rgba(0, 102, 255, 0.15) 100%);
-        color: #00f3ff;
+            rgba(244, 164, 96, 0.2) 0%, 
+            rgba(139, 69, 19, 0.15) 100%);
+        color: var(--wood-dark);
+        border-color: var(--accent-gold);
+        box-shadow: 
+            0 20px 40px rgba(139, 69, 19, 0.25),
+            0 0 50px rgba(244, 164, 96, 0.2),
+            inset 0 0 20px rgba(255, 255, 255, 0.3);
     }
 
-    /* ✅ НОВЫЙ ОБЪЕДИНЕННЫЙ БЛОК */
-    .unified-links-card {
+    /* Деревянная карточка для быстрого доступа */
+    .wood-links-card {
         background: linear-gradient(135deg, 
-            rgba(20, 30, 50, 0.7) 0%, 
-            rgba(15, 25, 45, 0.5) 100%);
+            rgba(222, 184, 135, 0.12) 0%, 
+            rgba(244, 164, 96, 0.08) 100%);
         backdrop-filter: blur(20px);
         border-radius: 25px;
         padding: 2.5rem;
-        border: 1px solid rgba(0, 153, 255, 0.2);
+        border: 2px solid var(--border-wood);
         box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            0 20px 40px rgba(139, 69, 19, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
         margin-top: 3rem;
     }
 
-    .unified-links-card:hover {
-        border-color: rgba(0, 243, 255, 0.4);
+    .wood-links-card:hover {
+        border-color: var(--accent-gold);
         transform: translateY(-10px);
         box-shadow: 
-            0 30px 50px rgba(0, 0, 0, 0.4),
-            0 0 40px rgba(0, 243, 255, 0.2);
+            0 30px 50px rgba(139, 69, 19, 0.2),
+            0 0 40px rgba(244, 164, 96, 0.15);
     }
 
-    .unified-header {
+    .wood-links-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, 
+            var(--wood-dark), 
+            var(--wood-sand), 
+            var(--accent-gold));
+    }
+
+    .wood-header {
         display: flex;
         align-items: center;
         gap: 1rem;
         margin-bottom: 2rem;
         padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(0, 153, 255, 0.2);
+        border-bottom: 2px solid rgba(244, 164, 96, 0.3);
     }
 
-    .unified-icon {
+    .wood-icon {
         font-size: 2.5rem;
-        color: #00f3ff;
-        filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.3));
+        color: var(--accent-gold);
+        filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
     }
 
-    .unified-title {
+    .wood-title {
         font-size: 1.8rem;
         font-weight: 700;
-        color: #ffffff;
+        color: var(--wood-dark);
         margin: 0;
+        font-family: 'Georgia', serif;
     }
 
-    .unified-grid {
+    body.dark-theme .wood-title {
+        color: var(--wood-light);
+    }
+
+    .wood-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
     }
 
-    .unified-link-btn {
+    .wood-link-btn {
         display: flex;
         align-items: center;
         gap: 1rem;
         padding: 1.2rem 1.5rem;
-        background: rgba(0, 102, 255, 0.1);
-        border: 1px solid rgba(0, 153, 255, 0.2);
+        background: rgba(222, 184, 135, 0.1);
+        border: 2px solid rgba(244, 164, 96, 0.2);
         border-radius: 15px;
-        color: #b3e0ff;
+        color: var(--text-dark);
         text-decoration: none;
         transition: all 0.3s ease;
         text-align: left;
     }
 
-    .unified-link-btn:hover {
-        background: rgba(0, 153, 255, 0.2);
-        border-color: rgba(0, 243, 255, 0.5);
-        color: #ffffff;
+    .wood-link-btn:hover {
+        background: rgba(244, 164, 96, 0.2);
+        border-color: var(--accent-gold);
+        color: var(--wood-dark);
         transform: translateX(10px);
-        box-shadow: 0 10px 25px rgba(0, 243, 255, 0.2);
+        box-shadow: 0 10px 25px rgba(244, 164, 96, 0.2);
     }
 
-    .unified-link-icon {
+    .wood-link-icon {
         font-size: 1.8rem;
         width: 50px;
         height: 50px;
-        background: rgba(0, 243, 255, 0.2);
+        background: linear-gradient(135deg, 
+            rgba(244, 164, 96, 0.2), 
+            rgba(212, 175, 55, 0.1));
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #80d4ff;
+        color: var(--wood-medium);
         flex-shrink: 0;
+        transition: all 0.3s ease;
     }
 
-    .unified-link-text {
+    .wood-link-btn:hover .wood-link-icon {
+        background: linear-gradient(135deg, 
+            rgba(244, 164, 96, 0.3), 
+            rgba(212, 175, 55, 0.2));
+        color: var(--accent-gold);
+        transform: rotate(10deg);
+    }
+
+    .wood-link-text {
         font-size: 1rem;
         font-weight: 600;
+    }
+
+    .wood-link-text strong {
+        color: var(--wood-dark);
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    .wood-link-text small {
+        color: var(--text-light);
+        font-size: 0.85rem;
+    }
+
+    body.dark-theme .wood-link-text strong {
+        color: var(--wood-light);
+    }
+
+    /* Деревянные декоративные элементы */
+    .wood-divider {
+        height: 1px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            var(--wood-sand), 
+            transparent);
+        margin: 2rem 0;
     }
 
     /* Анимации */
     @keyframes icon-float {
         0%, 100% { 
             transform: translateY(0) rotate(0deg); 
-            filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.4));
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
         }
         50% { 
             transform: translateY(-20px) rotate(5deg); 
-            filter: drop-shadow(0 0 40px rgba(0, 243, 255, 0.6));
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
         }
     }
 
-    @keyframes pulse-glow {
+    @keyframes wood-glow {
         0%, 100% { 
             box-shadow: 
-                0 30px 60px -12px rgba(0, 0, 0, 0.5),
-                0 0 50px rgba(0, 243, 255, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                0 30px 60px -12px rgba(139, 69, 19, 0.15),
+                0 0 50px rgba(244, 164, 96, 0.1);
         }
         50% { 
             box-shadow: 
-                0 30px 60px -12px rgba(0, 0, 0, 0.5),
-                0 0 70px rgba(0, 243, 255, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                0 30px 60px -12px rgba(139, 69, 19, 0.2),
+                0 0 70px rgba(244, 164, 96, 0.15);
         }
+    }
+
+    /* Дополнительные мебельные элементы */
+    .furniture-details {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .detail-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--accent-gold);
+        font-family: 'Georgia', serif;
+    }
+
+    .detail-label {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 0.5rem;
+    }
+
+    /* Стиль для статусов */
+    .status-badge {
+        display: inline-block;
+        padding: 0.5rem 1.2rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, 
+            rgba(222, 184, 135, 0.2), 
+            rgba(244, 164, 96, 0.15));
+        border: 1px solid rgba(244, 164, 96, 0.3);
+        color: var(--wood-medium);
+        margin: 0.3rem;
     }
 
     /* Адаптивность */
     @media (max-width: 992px) {
         .system-title { font-size: 2.8rem; }
         .main-card { padding: 3rem 2rem; }
+        .wood-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
         .system-title { font-size: 2.3rem; }
         .system-subtitle { font-size: 1.2rem; }
         .main-icon { font-size: 5rem; }
-        .unified-grid { grid-template-columns: 1fr; }
+        .wood-grid { grid-template-columns: 1fr; }
+        .furniture-details { gap: 2rem; }
     }
 
     @media (max-width: 480px) {
         .system-title { font-size: 1.8rem; }
         .main-card { padding: 2rem 1.5rem; }
         .main-btn { width: 100%; padding: 1rem 2rem; font-size: 1.1rem; }
+        .wood-links-card { padding: 1.5rem; }
     }
 </style>
 
 <div class="main-container">
     <div class="hero-section">
-        <!-- Основная карточка системы -->
+        <!-- Основная карточка в стиле дерева -->
         <div class="main-card">
             <div class="main-icon">
-                <i class="fas fa-server-network"></i>
+                <i class="fas fa-tools"></i>
             </div>
             
             <h1 class="system-title">RepairControl System</h1>
             
             <p class="system-subtitle">
-                Интеллектуальная система управления и автоматизации 
-                процессов ремонта климатического оборудования
+                Профессиональная (или не очень) система учета и управления заявками 
+                на ремонт бытовой техники и мебели. Ну кароче сами лучше чините
             </p>
+
+            <!-- Дополнительные детали мебели -->
+            <div class="furniture-details">
+                <div class="detail-item">
+                    <span class="detail-number">24/7 ну или когда придется</span>
+                    <span class="detail-label">Поддержка</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-number">не 100%</span>
+                    <span class="detail-label">Гарантия</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-number">500+ недовольных</span>
+                    <span class="detail-label">Заказов</span>
+                </div>
+            </div>
+
+            <div class="wood-divider"></div>
             
             {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="main-btn">
-                    <i class="fas fa-terminal"></i>
-                    Перейти к управлению
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Перейти в панель управления
                 </a>
             {% else %}
                 <a href="{% url 'login' %}" class="main-btn">
-                    <i class="fas fa-fingerprint"></i>
-                    Активировать доступ
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Войти в систему
                 </a>
             {% endif %}
+
+            <!-- Статусы услуг -->
+           
         </div>
 
-        <!-- ✅ ОБЪЕДИНЕННЫЙ БЛОК: 4 ссылки в одной карточке -->
-        <div class="unified-links-card">
-            <div class="unified-header">
-                <div class="unified-icon">
-                    <i class="fas fa-th-large"></i>
+        <!-- Карточка быстрого доступа в деревянном стиле -->
+        <div class="wood-links-card">
+            <div class="wood-header">
+                <div class="wood-icon">
+                    <i class="fas fa-chair"></i>
                 </div>
-                <h3 class="unified-title">Быстрый доступ</h3>
+                <h3 class="wood-title">Быстрый доступ</h3> 
+                <span class="detail-label">точно быстрее чем поддержка</span>
             </div>
             
             {% if user.is_authenticated %}
-            <div class="unified-grid">
-                <a href="{% url 'stats' %}" class="unified-link-btn">
-                    <div class="unified-link-icon">
+            <div class="wood-grid">
+                <a href="{% url 'stats' %}" class="wood-link-btn">
+                    <div class="wood-link-icon">
                         <i class="fas fa-chart-bar"></i>
                     </div>
-                    <div class="unified-link-text">
-                        <strong>Аналитика</strong><br>
-                        <small>Статистика и отчеты</small>
+                    <div class="wood-link-text">
+                        <strong>Аналитика</strong>
+                        <small>Статистика и отчеты по ремонтам</small>
                     </div>
                 </a>
                 
-                <a href="{% url 'profile' %}" class="unified-link-btn">
-                    <div class="unified-link-icon">
-                        <i class="fas fa-user-shield"></i>
+                <a href="{% url 'profile' %}" class="wood-link-btn">
+                    <div class="wood-link-icon">
+                        <i class="fas fa-user-cog"></i>
                     </div>
-                    <div class="unified-link-text">
-                        <strong>Мой профиль</strong><br>
-                        <small>Личный кабинет</small>
+                    <div class="wood-link-text">
+                        <strong>Мой профиль</strong>
+                        <small>Личные данные и настройки</small>
                     </div>
                 </a>
                 
-                <a href="#" class="unified-link-btn">
-                    <div class="unified-link-icon">
+                <a href="#" class="wood-link-btn">
+                    <div class="wood-link-icon">
                         <i class="fas fa-book"></i>
                     </div>
-                    <div class="unified-link-text">
-                        <strong>Документация</strong><br>
-                        <small>Руководство пользователя</small>
+                    <div class="wood-link-text">
+                        <strong>Инструкции</strong>
+                        <small>Руководства по ремонту</small>
                     </div>
                 </a>
                 
-                <a href="{% url 'qr_survey' %}" class="unified-link-btn">
-                    <div class="unified-link-icon">
+                <a href="{% url 'qr_survey' %}" class="wood-link-btn">
+                    <div class="wood-link-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <div class="unified-link-text">
-                        <strong>Поддержка</strong><br>
+                    <div class="wood-link-text">
+                        <strong>Поддержка</strong>
                         <small>Техническая помощь</small>
                     </div>
+                </a>
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+                <p class="text-muted mb-3">Для доступа к функциям системы необходимо авторизоваться</p>
+                <a href="{% url 'login' %}" class="main-btn">
+                    <i class="fas fa-key me-2"></i>
+                    Войти в систему
                 </a>
             </div>
             {% endif %}
@@ -342,7 +488,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Анимация появления элементов
+    // Анимация появления основной карточки
     const mainCard = document.querySelector('.main-card');
     mainCard.style.opacity = '0';
     mainCard.style.transform = 'translateY(40px) scale(0.95)';
@@ -353,26 +499,68 @@ document.addEventListener('DOMContentLoaded', function() {
         mainCard.style.transform = 'translateY(0) scale(1)';
     }, 300);
     
-    // Анимация unified карточки
-    const unifiedCard = document.querySelector('.unified-links-card');
-    unifiedCard.style.opacity = '0';
-    unifiedCard.style.transform = 'translateY(30px)';
+    // Анимация деревянной карточки
+    const woodCard = document.querySelector('.wood-links-card');
+    woodCard.style.opacity = '0';
+    woodCard.style.transform = 'translateY(30px)';
     
     setTimeout(() => {
-        unifiedCard.style.transition = 'all 0.6s ease';
-        unifiedCard.style.opacity = '1';
-        unifiedCard.style.transform = 'translateY(0)';
+        woodCard.style.transition = 'all 0.6s ease';
+        woodCard.style.opacity = '1';
+        woodCard.style.transform = 'translateY(0)';
     }, 700);
     
-    // Анимация для иконки
-    const mainIcon = document.querySelector('.main-icon');
-    setInterval(() => {
-        mainIcon.style.transform = 'rotate(360deg)';
-        mainIcon.style.transition = 'transform 2s ease';
+    // Анимация для кнопок быстрого доступа
+    const woodLinks = document.querySelectorAll('.wood-link-btn');
+    woodLinks.forEach((link, index) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateX(-20px)';
+        
         setTimeout(() => {
-            mainIcon.style.transform = 'rotate(0deg)';
-        }, 2000);
-    }, 10000);
+            link.style.transition = 'all 0.5s ease ' + (index * 0.1) + 's';
+            link.style.opacity = '1';
+            link.style.transform = 'translateX(0)';
+        }, 900 + (index * 100));
+    });
+    
+    // Анимация для деталей мебели
+    const detailItems = document.querySelectorAll('.detail-item');
+    detailItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'all 0.6s ease ' + (index * 0.2) + 's';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+        }, 1200 + (index * 200));
+    });
+    
+    // Плавная анимация иконки при наведении
+    const mainIcon = document.querySelector('.main-icon');
+    mainIcon.addEventListener('mouseenter', () => {
+        mainIcon.style.transition = 'all 0.3s ease';
+        mainIcon.style.transform = 'scale(1.1) rotate(10deg)';
+    });
+    
+    mainIcon.addEventListener('mouseleave', () => {
+        mainIcon.style.transition = 'all 0.3s ease';
+        mainIcon.style.transform = 'scale(1) rotate(0deg)';
+    });
+    
+    // Эффект при наведении на статусы
+    const statusBadges = document.querySelectorAll('.status-badge');
+    statusBadges.forEach(badge => {
+        badge.addEventListener('mouseenter', () => {
+            badge.style.transform = 'translateY(-3px)';
+            badge.style.boxShadow = '0 8px 20px rgba(244, 164, 96, 0.2)';
+        });
+        
+        badge.addEventListener('mouseleave', () => {
+            badge.style.transform = 'translateY(0)';
+            badge.style.boxShadow = 'none';
+        });
+    });
 });
 </script>
 {% endblock %}
